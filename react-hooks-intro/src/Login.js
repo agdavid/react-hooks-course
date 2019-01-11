@@ -3,6 +3,18 @@ import React, { useState } from 'react';
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [user, setUser] = useState(null);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        // this is where you would do external API validation
+        const userData = {
+            username,
+            password
+        }
+        setUser(userData);
+    }
     
     return (
         <div
@@ -17,6 +29,7 @@ export default function Login() {
                     alignItems: 'center',
                     justifyItems: 'center'
                 }}
+                onSubmit={handleSubmit}
                 >
                 <input 
                     type="text"
@@ -28,6 +41,8 @@ export default function Login() {
                     onChange={event => setPassword(event.target.value)}/>
                 <button type="submit">Submit</button>
             </form>
+
+            {user && JSON.stringify(user, null, 2)}
         </div>
     );
 }
