@@ -8,6 +8,7 @@ const App = () => {
 
     // side effect (interact with outside world) in functional component
     // effect function (e.g., state change) executed after every render
+    // efficient way to replace componentDidMount componentDidUpdate
     useEffect(() => {
         document.title = `You have clicked ${count} times`
     })
