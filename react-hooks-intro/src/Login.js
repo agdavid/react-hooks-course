@@ -13,7 +13,11 @@ export default function Login() {
             username,
             password
         }
+        // "send" this user for validation
         setUser(userData);
+        // empty the form values
+        setUsername("");
+        setPassword("");
     }
     
     return (
@@ -34,11 +38,13 @@ export default function Login() {
                 <input 
                     type="text"
                     placeholder="Username"
-                    onChange={event => setUsername(event.target.value)}/>
+                    onChange={event => setUsername(event.target.value)}
+                    value={username}/>
                 <input 
                     type="password"
                     placeholder="Password"
-                    onChange={event => setPassword(event.target.value)}/>
+                    onChange={event => setPassword(event.target.value)}
+                    value={password}/>
                 <button type="submit">Submit</button>
             </form>
 
