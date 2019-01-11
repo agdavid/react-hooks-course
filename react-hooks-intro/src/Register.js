@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
+const initialFormState = {
+    username: "",
+    email: "",
+    password: ""
+};
+
 export default function Register() {
-    const [form, setForm] = useState({
-        username: "",
-        email: "",
-        password: ""
-    });
+    const [form, setForm] = useState(initialFormState);
 
     const [user, setUser] = useState(null);
 
@@ -19,6 +21,7 @@ export default function Register() {
     const handleSubmit = (event) => {
         event.preventDefault();
         setUser(form); // user = form
+        setForm(initialFormState);
     }
 
     return (
@@ -40,17 +43,20 @@ export default function Register() {
                     type="text"
                     placeholder="Username"
                     name="username"
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    value={form.username} />
                 <input 
                     type="email"
                     placeholder="Email Address"
                     name="email"
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    value={form.email} />
                 <input 
                     type="password"
                     placeholder="Password"
                     name="password"
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    value={form.password} />
                 <button type="submit">Submit</button>
             </form>
 
