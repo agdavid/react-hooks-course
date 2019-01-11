@@ -19,7 +19,12 @@ const App = () => {
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
         }
-    });
+        // second argument contains "dependent values"
+        // effect is conditionally triggered if values in [] change
+        // empty array means "no variables trigger change" => effect will only run on mount and unmount
+    // }, []);
+        // values mean "this variable triggers change" => effect will run on change of that value
+    }, [count]);
 
     const handleMouseMove = (event) => {
         setMousePosition({
