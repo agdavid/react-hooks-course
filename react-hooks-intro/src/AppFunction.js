@@ -3,17 +3,33 @@ import React, { useState } from 'react';
 const App = () => {
 
     // [variable, setState] = hook(initialState)
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0);
+    const [isOn, setIsOn] = useState(false);
 
     const incrementCount = () => {
         setCount(prevCount => prevCount+1);
     }
 
+    const toggleLight = () => {
+        setIsOn( prevIsOn => !isOn);
+    }
     return (
-        <div>
-            <div>useState Hook</div>
+        <>
+            <h2>Counter - useState Hook</h2>
             <button onClick={incrementCount}>I was clicked {count} times</button>
-        </div>
+
+            <h2>Toggle Light - useState Hook</h2>
+            <img
+                src={
+                    isOn ? 'https://icon.now.sh/highlight/fd0' : 'https://icon.now.sh/highlight/aaa'
+                }
+                style={{
+                    height: "50px",
+                    width: "50px",
+                }}
+                alt="Flashlight"
+                onClick={toggleLight} />
+        </>
         
     )
 }
