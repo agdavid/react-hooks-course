@@ -20,6 +20,10 @@ export default function App() {
     getResults();
   }
   
+  const handleClearSearch = () => {
+    setQuery("");
+  }
+
   return (
     <>
       <form
@@ -31,6 +35,7 @@ export default function App() {
           value={query}
         />
         <button type="submit">Search</button>
+        <button type="button" onClick={handleClearSearch}>Clear</button>
       </form>
       <ul>
         {results.map(result => (
