@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const App = () => {
 
     // [variable, setState] = hook(initialState)
     const [count, setCount] = useState(0);
     const [isOn, setIsOn] = useState(false);
+
+    // side effect (interact with outside world) in functional component
+    // effect function (e.g., state change) executed after every render
+    useEffect(() => {
+        document.title = `You have clicked ${count} times`
+    })
 
     const incrementCount = () => {
         setCount(prevCount => prevCount+1);
