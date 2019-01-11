@@ -6,6 +6,8 @@ const App = () => {
     const [count, setCount] = useState(0);
     const [isOn, setIsOn] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: null, y: null }); // initialState can be any JavaScript type; here {object}
+    // navigator is a browser API; check it out in the console
+    const [status, setStatus] = useState(navigator.onLine) // initialState with value from external API
 
     // side effect (interact with outside world) in functional component
     // effect function (e.g., state change) executed after every render
@@ -13,11 +15,15 @@ const App = () => {
     useEffect(() => {
         document.title = `You have clicked ${count} times`;
         window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('online', handleOnline);
+        window.addEventListener('offline', handleOffline);
     
         // replicate componentWillUnmount
         // cleanup side effect on unmount
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('online', handleOnline);
+            window.removeEventListener('offline', handleOffline);
         }
         // second argument contains "dependent values"
         // effect is conditionally triggered if values in [] change
@@ -25,6 +31,14 @@ const App = () => {
     // }, []);
         // values mean "this variable triggers change" => effect will run on change of that value
     }, [count]);
+
+    const handleOnline = () => {
+        setStatus(true);
+    };
+
+    const handleOffline = () => {
+        setStatus(false);
+    }
 
     const handleMouseMove = (event) => {
         setMousePosition({
@@ -57,9 +71,12 @@ const App = () => {
                 alt="Flashlight"
                 onClick={toggleLight} />
             
-            <h2>Mouse Position</h2>
+            <h2>Mouse Position - useState, useEffect Hook</h2>
             {JSON.stringify(mousePosition, null, 2)}
             <br />
+
+            <h2>Network Status - useState, useEffect Hook</h2>
+            <p> You are <strong>{status ? "online" : "offline"}</strong></p>
         </>
         
     )
