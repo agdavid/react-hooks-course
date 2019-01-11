@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Login() {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    
     return (
         <div
             style={{
@@ -17,10 +20,12 @@ export default function Login() {
                 >
                 <input 
                     type="text"
-                    placeholder="Username"/>
+                    placeholder="Username"
+                    onChange={event => setUsername(event.target.value)}/>
                 <input 
                     type="password"
-                    placeholder="Password"/>
+                    placeholder="Password"
+                    onChange={event => setPassword(event.target.value)}/>
                 <button type="submit">Submit</button>
             </form>
         </div>
