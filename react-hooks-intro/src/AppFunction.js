@@ -5,13 +5,28 @@ const App = () => {
     // [variable, setState] = hook(initialState)
     const [count, setCount] = useState(0);
     const [isOn, setIsOn] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ x: null, y: null }); // initialState can be any JavaScript type; here {object}
 
     // side effect (interact with outside world) in functional component
     // effect function (e.g., state change) executed after every render
     // efficient way to replace componentDidMount componentDidUpdate
     useEffect(() => {
-        document.title = `You have clicked ${count} times`
-    })
+        document.title = `You have clicked ${count} times`;
+        window.addEventListener('mousemove', handleMouseMove);
+    
+        // replicate componentWillUnmount
+        // cleanup side effect on unmount
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        }
+    });
+
+    const handleMouseMove = (event) => {
+        setMousePosition({
+            x: event.pageX,
+            y: event.pageY
+        });
+    }
 
     const incrementCount = () => {
         setCount(prevCount => prevCount+1);
@@ -36,6 +51,10 @@ const App = () => {
                 }}
                 alt="Flashlight"
                 onClick={toggleLight} />
+            
+            <h2>Mouse Position</h2>
+            {JSON.stringify(mousePosition, null, 2)}
+            <br />
         </>
         
     )
