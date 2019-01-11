@@ -14,7 +14,7 @@ const App = () => {
     const [mousePosition, setMousePosition] = useState({ x: null, y: null }); // initialState can be any JavaScript type; here {object}
     // navigator is a browser API
     const [status, setStatus] = useState(navigator.onLine) // initialState with value from external API
-    const [location, setLocation] = useState(initialLocationState)
+    const [{ latitude, longitude, speed }, setLocation] = useState(initialLocationState)
 
     // side effect (interact with outside world) in functional component
     // effect function (e.g., state change) executed after every render
@@ -105,9 +105,9 @@ const App = () => {
             <p> You are <strong>{status ? "online" : "offline"}</strong></p>
 
             <h2>Geolocation - useState, useEffect Hook</h2>
-            <p>Latitude is {location.latitude}</p>
-            <p>Longitude is {location.longitude}</p>
-            <p>Speed is {location.speed ? location.speed : 'O'}</p>
+            <p>Latitude is {latitude}</p>
+            <p>Longitude is {longitude}</p>
+            <p>Speed is {speed ? speed : 'O'}</p>
         </>
         
     )
