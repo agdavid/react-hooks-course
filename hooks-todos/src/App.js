@@ -1,15 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from './index';
 
-// user consumer to get values from parent component via context
 export default function App() {
+
+  const value = useContext(UserContext);
+
   return (
-    <UserContext.Consumer>
-      {(value) => { 
-        return (
-          <div>Hello, {value}</div>
-        )
-      }}
-    </UserContext.Consumer>
+    <div>
+      Hello, {value}
+    </div>
   );
 };
