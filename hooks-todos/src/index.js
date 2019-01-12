@@ -1,19 +1,25 @@
-import React, { createContext } from 'react';
+import React, { useContext, useReducer } from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import TodosContext from './context';
+import todosReducer from './reducer';
 
-// create context with reference
-// Context = { Provider: ..., Consumer: ... }
-export const UserContext = createContext();
-const username = "Dave";
+import TodoList from './components/TodoList';
 
-// use provider to share values with child components via context
-ReactDOM.render(
-<UserContext.Provider value={username}>
-    <App />
-</UserContext.Provider>
-, document.getElementById('root'));
+const App = () => {
+
+    const initialState = useContext(TodosContext);
+    const [state, dispatch] = useReducer(todosReducer, initialState);
+
+
+    return (
+        <TodosContext.Provider value={{ state, dispatch }}>
+            <TodoList />
+        </TodosContext.Provider>
+    )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
