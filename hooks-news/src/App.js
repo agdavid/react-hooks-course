@@ -61,9 +61,9 @@ export default function App() {
           className="bg-teal text-white p-1 rounded">Clear</button>
       </form>
       { isLoading ? 
-        <div
-          className="font-bold text-orange-dark">Loading results...</div> : 
-        [<ul
+        (<div
+        className="font-bold text-orange-dark">Loading results...</div>) : 
+        (<ul
           className="list-reset leading-normal">
         {results.map(result => (
           <li 
@@ -73,7 +73,7 @@ export default function App() {
               className="text-indigo-dark hover:text-indigo-darkest">{result.title}</a>
           </li>
         ))}
-      </ul>]}
+        </ul>)}
 
       {error && <div>className="text-red font-bold">{error.message}</div>}
     </div>
