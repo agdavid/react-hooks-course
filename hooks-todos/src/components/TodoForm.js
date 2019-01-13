@@ -5,7 +5,7 @@ import TodosContext from '../context';
 
 export default function TodoForm() {
     const [todo, setTodo] = useState('');
-    const { state: { currentTodo = {} }, dispatch } = useContext(TodosContext);
+    const { state: { todos, currentTodo = {} }, dispatch } = useContext(TodosContext);
 
     useEffect(() => {
         if (currentTodo.text) {
@@ -23,6 +23,15 @@ export default function TodoForm() {
             });
             dispatch({ type: 'UPDATE_TODO', payload: response.data })
         } else {
+            // if empty text, do not add empty item; return state
+            if (todo === '') {
+                return alert('Oops! Text cannot be empty');
+            }
+            // if text matches existing todo text, return an index # and return boolean
+            // if returns a positive index, evaluates to true
+            if (todos.findIndex(t => t.text === todo) > -1) {
+                return alert(`Oops! Text duplicate "${todo}" is not allowed`);
+            }
             const response = await axios.post(`https://hooks-api-iyy9jjrn8.now.sh/todos`, {
                 id: uuidv4(),
                 text: todo,
