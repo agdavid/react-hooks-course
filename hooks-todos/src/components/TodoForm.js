@@ -1,9 +1,15 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TodosContext from '../context';
 
 export default function TodoForm() {
     const [todo, setTodo] = useState('');
-    const { dispatch } = useContext(TodosContext);
+    const { state: { currentTodo = {} }, dispatch } = useContext(TodosContext);
+
+    useEffect(() => {
+        if (currentTodo.text) {
+            setTodo(currentTodo.text);
+        }
+    }, [currentTodo.id])
 
     const handleSubmit = (event) => {
         event.preventDefault();
