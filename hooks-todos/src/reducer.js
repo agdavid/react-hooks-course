@@ -3,6 +3,15 @@ import uuidv4 from 'uuid/v4';
 export default function reducer(state, action) {
     switch(action.type) {
         case 'ADD_TODO':
+            // if empty text, do not add empty item; return state
+            if (!action.payload) {
+                return state;
+            }
+            // if text matches existing todo text, return an index # and return boolean
+            // if returns a positive index, evaluates to true
+            if (state.todos.findIndex(t => t.text === action.payload) > -1) {
+                return state;
+            }
             const newTodo = {
                 id: uuidv4(),
                 text: action.payload,
@@ -29,6 +38,15 @@ export default function reducer(state, action) {
                 todos: toggledTodos
             }
         case 'UPDATE_TODO':
+            // if empty text, do not add empty item; return state
+            if (!action.payload) {
+                return state;
+            }
+            // if text matches existing todo text, return an index # and return boolean
+            // if returns a positive index, evaluates to true
+            if (state.todos.findIndex(t => t.text === action.payload) > -1) {
+                return state;
+            }
             const updatedTodo = {
                 ...state.currentTodo,
                 text: action.payload
