@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import uuidv4 from 'uuid/v4';
 import TodosContext from '../context';
 
 export default function TodoForm() {
     const [todo, setTodo] = useState('');
-    const { state: { currentTodo = {} }, dispatch } = useContext(TodosContext);
+    const { state: { todos, currentTodo = {} }, dispatch } = useContext(TodosContext);
 
     useEffect(() => {
         if (currentTodo.text) {
@@ -13,12 +15,29 @@ export default function TodoForm() {
         }
     }, [currentTodo.id])
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (currentTodo.text) {
-            dispatch({ type: 'UPDATE_TODO', payload: todo })
+            const response = await axios.patch(`https://hooks-api-iyy9jjrn8.now.sh/todos/${currentTodo.id}`, {
+                text: todo
+            });
+            dispatch({ type: 'UPDATE_TODO', payload: response.data })
         } else {
-            dispatch({ type: 'ADD_TODO', payload: todo })
+            // if empty text, do not add empty item; return state
+            if (todo === '') {
+                return alert('Oops! Text cannot be empty');
+            }
+            // if text matches existing todo text, return an index # and return boolean
+            // if returns a positive index, evaluates to true
+            if (todos.findIndex(t => t.text === todo) > -1) {
+                return alert(`Oops! Text duplicate "${todo}" is not allowed`);
+            }
+            const response = await axios.post(`https://hooks-api-iyy9jjrn8.now.sh/todos`, {
+                id: uuidv4(),
+                text: todo,
+                complete: false
+            });
+            dispatch({ type: 'ADD_TODO', payload: response.data })
         }
         setTodo('');
     }

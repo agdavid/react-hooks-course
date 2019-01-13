@@ -1,23 +1,23 @@
-import uuidv4 from 'uuid/v4';
+// import uuidv4 from 'uuid/v4';
 
 export default function reducer(state, action) {
     switch(action.type) {
+        case 'GET_TODOS':
+            return {
+                ...state,
+                todos: action.payload
+            }
         case 'ADD_TODO':
-            // if empty text, do not add empty item; return state
-            if (!action.payload) {
-                return state;
-            }
-            // if text matches existing todo text, return an index # and return boolean
-            // if returns a positive index, evaluates to true
-            if (state.todos.findIndex(t => t.text === action.payload) > -1) {
-                return state;
-            }
-            const newTodo = {
-                id: uuidv4(),
-                text: action.payload,
-                complete: false
-            }
-            const addedTodos = [...state.todos, newTodo];
+            // // if empty text, do not add empty item; return state
+            // if (!action.payload) {
+            //     return state;
+            // }
+            // // if text matches existing todo text, return an index # and return boolean
+            // // if returns a positive index, evaluates to true
+            // if (state.todos.findIndex(t => t.text === action.payload) > -1) {
+            //     return state;
+            // }
+            const addedTodos = [...state.todos, action.payload];
             return {
                 ...state,
                 todos: addedTodos
@@ -28,28 +28,24 @@ export default function reducer(state, action) {
                 currentTodo: action.payload 
             }
         case 'TOGGLE_TODO':
-            const toggledTodos = state.todos.map( t => t.id === action.payload.id ?
-            { 
-                ...action.payload, 
-                complete: !action.payload.complete 
-            } : t );
+            const toggledTodos = state.todos.map( t => 
+                t.id === action.payload.id ? action.payload : t );
             return {
                 ...state,
                 todos: toggledTodos
             }
         case 'UPDATE_TODO':
-            // if empty text, do not add empty item; return state
-            if (!action.payload) {
-                return state;
-            }
-            // if text matches existing todo text, return an index # and return boolean
-            // if returns a positive index, evaluates to true
-            if (state.todos.findIndex(t => t.text === action.payload) > -1) {
-                return state;
-            }
+            // // if empty text, do not add empty item; return state
+            // if (!action.payload) {
+            //     return state;
+            // }
+            // // if text matches existing todo text, return an index # and return boolean
+            // // if returns a positive index, evaluates to true
+            // if (state.todos.findIndex(t => t.text === action.payload) > -1) {
+            //     return state;
+            // }
             const updatedTodo = {
-                ...state.currentTodo,
-                text: action.payload
+                ...action.payload
             }
             const updatedTodoIndex = state.todos.findIndex( t => t.id === state.currentTodo.id);
             const updatedTodos = [
