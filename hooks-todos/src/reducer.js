@@ -35,18 +35,17 @@ export default function reducer(state, action) {
                 todos: toggledTodos
             }
         case 'UPDATE_TODO':
-            // if empty text, do not add empty item; return state
-            if (!action.payload) {
-                return state;
-            }
-            // if text matches existing todo text, return an index # and return boolean
-            // if returns a positive index, evaluates to true
-            if (state.todos.findIndex(t => t.text === action.payload) > -1) {
-                return state;
-            }
+            // // if empty text, do not add empty item; return state
+            // if (!action.payload) {
+            //     return state;
+            // }
+            // // if text matches existing todo text, return an index # and return boolean
+            // // if returns a positive index, evaluates to true
+            // if (state.todos.findIndex(t => t.text === action.payload) > -1) {
+            //     return state;
+            // }
             const updatedTodo = {
-                ...state.currentTodo,
-                text: action.payload
+                ...action.payload
             }
             const updatedTodoIndex = state.todos.findIndex( t => t.id === state.currentTodo.id);
             const updatedTodos = [
