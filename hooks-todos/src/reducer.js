@@ -13,6 +13,11 @@ export default function reducer(state, action) {
                 ...state,
                 todos: addedTodos
             }
+        case 'SET_CURRENT_TODO':
+            return {
+                ...state,
+                currentTodo: action.payload 
+            }
         case 'TOGGLE_TODO':
             const toggledTodos = state.todos.map( t => t.id === action.payload.id ?
             { 

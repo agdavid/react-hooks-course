@@ -17,7 +17,8 @@ const TodosContext = React.createContext({
             text: "Finish project",
             complete: true,
         }
-    ]
+    ],
+    currentTodo: {}
 });
 
 export default TodosContext;
