@@ -27,7 +27,14 @@ const App = () => {
 
     const initialState = useContext(TodosContext);
     const [state, dispatch] = useReducer(todosReducer, initialState);
-    const savedTodos = useApi('https://hooks-api-iyy9jjrn8.now.sh/todos')
+    const savedTodos = useApi('https://hooks-api-iyy9jjrn8.now.sh/todos');
+
+    useEffect(() => {
+        dispatch({
+            type: 'GET_TODOS',
+            payload: savedTodos
+        })
+    }, [savedTodos]);
 
     return (
         <TodosContext.Provider value={{ state, dispatch }}>
