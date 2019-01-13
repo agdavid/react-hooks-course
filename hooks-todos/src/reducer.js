@@ -46,8 +46,10 @@ export default function reducer(state, action) {
             }
         case 'REMOVE_TODO':
             const filteredTodos = state.todos.filter(t => t.id !== action.payload.id);
+            const isRemovedTodo = state.currentTodo.id === action.payload.id ? {} : state.currentTodo;
             return {
                 ...state,
+                currentTodo: isRemovedTodo,
                 todos: filteredTodos
             }
         default:
