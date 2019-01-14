@@ -6,6 +6,22 @@ Built during the first Off-sprint Day of [Algolia](https://www.algolia.com/), gi
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Sample Apps
+
+### React Hooks Intro
+
+Compare `AppClass.js` and `AppFunction.js` to see comparable functionality in a class based component and a functional component using hooks.
+
+See `Login.js` and `Register.js` to see how you might handle state and form submission using hooks.
+
+### Hooks News
+
+Retrieve external data from the Hacker News API by submitting a search query - it's powered by Algolia!
+
+### Hooks Todos
+
+Classic CRUD app to add, edit, delete, and toggle items on a "to do" list.
+
 ## Available Scripts
 
 In each project directory, you can run:
